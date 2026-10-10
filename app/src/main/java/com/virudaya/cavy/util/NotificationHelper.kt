@@ -33,7 +33,7 @@ object NotificationHelper {
     const val CHANNEL_NAME = "Cavy Messages"
     const val PERMISSION_REQUEST_CODE = 1001
 
-    var BACKEND_URL: String? = null
+    var BACKEND_URL: String? =  "https://cavy-chat-app.vercel.app/api/sendNotification"
 
     fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
