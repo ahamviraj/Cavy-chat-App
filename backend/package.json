@@ -1,0 +1,12 @@
+{
+  "name": "cavy-notification-backend",
+  "version": "1.0.0",
+  "description": "Trusted Push Notification Backend for CAVY Messaging App",
+  "main": "api/sendNotification.js",
+  "scripts": {
+    "start": "node api/sendNotification.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  }
+}

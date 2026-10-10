@@ -1,0 +1,125 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "profiles": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.hasChildren(['displayName', 'createdAt', 'updatedAt'])",
+        "displayName": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 50"
+        },
+        "photoUrl": {
+          ".validate": "newData.val() == null || (newData.isString() && newData.val().length <= 500)"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber() && (!data.exists() || newData.val() === data.val())"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "privateProfiles": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.hasChildren(['email'])",
+        "email": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "fcmToken": {
+          ".validate": "newData.isString() && newData.val().length <= 500"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "conversations": {
+      "$conversationId": {
+        ".read": "auth != null && data.child('participants/' + auth.uid).val() === true",
+        ".write": "auth != null && ( (!data.exists() && newData.child('creatorUid').val() === auth.uid && newData.child('participants/' + auth.uid).val() === true) || (data.exists() && data.child('participants/' + auth.uid).val() === true) )",
+        ".validate": "newData.hasChildren(['creatorUid', 'createdAt', 'participants'])",
+        "creatorUid": {
+          ".validate": "newData.isString() && newData.val() === auth.uid && (!data.exists() || newData.val() === data.val())"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber() && (!data.exists() || newData.val() === data.val())"
+        },
+        "lastMessageText": {
+          ".validate": "newData.isString() && newData.val().length <= 4000"
+        },
+        "lastMessageSenderUid": {
+          ".validate": "newData.isString()"
+        },
+        "lastMessageTimestamp": {
+          ".validate": "newData.isNumber()"
+        },
+        "participants": {
+          ".validate": "newData.hasChildren() && (!data.exists() || newData.val() === data.val())",
+          "$participantUid": {
+            ".validate": "newData.isBoolean() && newData.val() === true"
+          }
+        },
+        "messages": {
+          "$messageId": {
+            ".read": "auth != null && root.child('conversations/' + $conversationId + '/participants/' + auth.uid).val() === true",
+            ".write": "auth != null && root.child('conversations/' + $conversationId + '/participants/' + auth.uid).val() === true && newData.child('senderUid').val() === auth.uid",
+            ".validate": "newData.hasChildren(['senderUid', 'text', 'sentAt'])",
+            "senderUid": {
+              ".validate": "newData.isString() && newData.val() === auth.uid"
+            },
+            "text": {
+              ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 4000"
+            },
+            "sentAt": {
+              ".validate": "newData.isNumber()"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "userConversations": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        "$conversationId": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".write": "auth != null && (auth.uid === $uid || (newData.child('otherUid').val() === auth.uid && (!root.child('conversations/' + $conversationId).exists() || root.child('conversations/' + $conversationId + '/participants/' + auth.uid).val() === true)))",
+          ".validate": "newData.hasChildren(['otherUid', 'otherDisplayName', 'lastMessageText', 'lastMessageSenderUid', 'lastMessageTimestamp', 'updatedAt'])",
+          "otherUid": {
+            ".validate": "newData.isString()"
+          },
+          "otherDisplayName": {
+            ".validate": "newData.isString()"
+          },
+          "lastMessageText": {
+            ".validate": "newData.isString() && newData.val().length <= 4000"
+          },
+          "lastMessageSenderUid": {
+            ".validate": "newData.isString()"
+          },
+          "lastMessageTimestamp": {
+            ".validate": "newData.isNumber()"
+          },
+          "updatedAt": {
+            ".validate": "newData.isNumber()"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    }
+  }
+}

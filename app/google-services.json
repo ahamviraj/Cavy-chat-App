@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "765909145590",
+    "firebase_url": "https://cavy-chat-app-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "cavy-chat-app",
+    "storage_bucket": "cavy-chat-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765909145590:android:e0ff6cd771bbae393959d7",
+        "android_client_info": {
+          "package_name": "com.virudaya.cavy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "765909145590-e19vgecsuf6jhp7ug31nfdjl0ed8qful.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi03n6F7sTz_3unXviw2PCD0hZ3NYG7Z4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "765909145590-e19vgecsuf6jhp7ug31nfdjl0ed8qful.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
